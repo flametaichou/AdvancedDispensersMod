@@ -17,12 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
-import com.supermanitu.advanceddispensers.autocrafting.AutoCraftingConfig;
-import com.supermanitu.advanceddispensers.autocrafting.BlockAutoCrafting;
-import com.supermanitu.advanceddispensers.autocrafting.TileEntityAutoCrafting;
-import com.supermanitu.advanceddispensers.breaker.BlockBreaker;
-import com.supermanitu.advanceddispensers.breaker.BreakerConfig;
-import com.supermanitu.advanceddispensers.breaker.TileEntityBreaker;
 import com.supermanitu.advanceddispensers.proxies.CommonProxy;
 import com.supermanitu.advanceddispensers.user.BlockUser;
 import com.supermanitu.advanceddispensers.user.UserConfig;
@@ -52,9 +46,7 @@ public class AdvancedDispensersMod
     public static CommonProxy proxy;
 	
 	//Blocks
-	public static BlockBreaker[] blockBreaker;
 	public static BlockUser blockUser;
-	public static BlockAutoCrafting blockAutoCrafting;
 	
 	//Items
 	
@@ -70,59 +62,14 @@ public class AdvancedDispensersMod
 		 Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		 config.load();
 		 
-		 BreakerConfig breakerConfig = new BreakerConfig(config);
 		 UserConfig userConfig = new UserConfig(config);
-		 AutoCraftingConfig autoCraftingConfig = new AutoCraftingConfig(config);
 		 
 		 //Initialization
 		 advancedDispensersTab = new AdvancedDispensersTab("advanceddispenserstabs");
 		 
-		 if(!isActualVersion())
-		 {
-			 FMLCommonHandler.instance().bus().register(new NewVersionEvent());
-		 }
-		 
 		 proxy.registerRenderers();
 		 
 		 NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
-
-		 //Breaker
-		 if(breakerConfig.isEnabled())
-		 {
-			 blockBreaker = new BlockBreaker[BlockBreaker.getTierCount()];
-			 int counter = 0;
-			 for(int i = 0; i < 2; i++)
-			 {
-				 if(breakerConfig.areEnchantmentsEnabled())
-				 {
-					 for(int j = 0; j < 4; j++)
-					 {
-						 blockBreaker[counter] = new BlockBreaker(i+2, j, false, breakerConfig.getTick(), breakerConfig.getMaxBlockCount());
-						 GameRegistry.registerBlock(blockBreaker[counter], blockBreaker[counter].getUnlocalizedName().substring(5));
-						 GameRegistry.addShapedRecipe(new ItemStack(blockBreaker[counter], 1), blockBreaker[counter].getRecipe());
-						 counter++;
-					 }
-				 }
-				 else
-				 {
-					 blockBreaker[counter] = new BlockBreaker(i+2, 0, false, breakerConfig.getTick(), breakerConfig.getMaxBlockCount());
-					 GameRegistry.registerBlock(blockBreaker[counter], blockBreaker[counter].getUnlocalizedName().substring(5));
-					 GameRegistry.addShapedRecipe(new ItemStack(blockBreaker[counter], 1), blockBreaker[counter].getRecipe());
-					 counter++;
-				 }
-			 }
-			 if(breakerConfig.areEnchantmentsEnabled())
-			 {
-				 for(int i = 0; i < 2; i++)
-				 {
-					 blockBreaker[counter] = new BlockBreaker(i+2, 0, true, breakerConfig.getTick(), breakerConfig.getMaxBlockCount());
-					 GameRegistry.registerBlock(blockBreaker[counter], blockBreaker[counter].getUnlocalizedName().substring(5));
-					 GameRegistry.addShapedRecipe(new ItemStack(blockBreaker[counter], 1), blockBreaker[counter].getRecipe());
-					 counter++;
-				 }
-			 }
-			 GameRegistry.registerTileEntity(TileEntityBreaker.class, "tileEntityBreaker");
-		 }
 
 		 //User
 		 if(userConfig.isEnabled())
@@ -131,15 +78,6 @@ public class AdvancedDispensersMod
 			 GameRegistry.registerBlock(blockUser, blockUser.getUnlocalizedName().substring(5));
 			 GameRegistry.registerTileEntity(TileEntityUser.class, "tileEntityUser");
 			 GameRegistry.addShapedRecipe(new ItemStack(blockUser, 1), blockUser.getRecipe());
-		 }
-		 
-		 //Automated Crafting Table
-		 if(autoCraftingConfig.isEnabled())
-		 {
-			 blockAutoCrafting = new BlockAutoCrafting(autoCraftingConfig.getTick(), autoCraftingConfig.getMaxBlockCount());
-			 GameRegistry.registerBlock(blockAutoCrafting, blockAutoCrafting.getUnlocalizedName().substring(5));
-			 GameRegistry.registerTileEntity(TileEntityAutoCrafting.class, "tileEntityAutoCrafting");
-			 GameRegistry.addShapedRecipe(new ItemStack(blockAutoCrafting, 1), blockAutoCrafting.getRecipe());
 		 }
 		 
 		 config.save();

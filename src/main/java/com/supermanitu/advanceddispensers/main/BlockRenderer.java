@@ -2,7 +2,6 @@ package com.supermanitu.advanceddispensers.main;
 
 import org.lwjgl.opengl.GL11;
 
-import com.supermanitu.advanceddispensers.breaker.BlockBreaker;
 import com.supermanitu.advanceddispensers.user.BlockUser;
 
 import net.minecraft.block.Block;
@@ -18,8 +17,7 @@ public class BlockRenderer implements ISimpleBlockRenderingHandler
 	{
 		int meta = 0;
 		
-		if(block instanceof BlockBreaker) meta = 1;
-		else if(block instanceof BlockUser) meta = 5;
+		if(block instanceof BlockUser) meta = 5;
 		
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5f, -0.5f, -0.5f);

@@ -3,7 +3,6 @@ package com.supermanitu.advanceddispensers.lib;
 import java.util.Hashtable;
 import java.util.Random;
 
-import com.supermanitu.advanceddispensers.autocrafting.TileEntityAutoCrafting;
 import com.supermanitu.advanceddispensers.main.AdvancedDispensersMod;
 
 import cpw.mods.fml.common.FMLCommonHandler;

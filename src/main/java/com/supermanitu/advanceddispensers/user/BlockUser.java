@@ -2,7 +2,6 @@ package com.supermanitu.advanceddispensers.user;
 
 import java.util.Random;
 
-import com.supermanitu.advanceddispensers.autocrafting.TileEntityAutoCrafting;
 import com.supermanitu.advanceddispensers.lib.AdvancedDispensersLib;
 import com.supermanitu.advanceddispensers.lib.BlockAdvancedDispensers;
 import com.supermanitu.advanceddispensers.lib.TileEntityAdvancedDispensers;
